@@ -1,0 +1,25 @@
+.b-footer{
+  padding: 30px 0;
+  background-color:  #111111;
+  .container{
+    position: static;
+  }
+  &__menu{
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+    &Item{
+      display: inline-block;
+      margin-right: 40px;
+    }
+    &Link{
+      color:  #ffffff;
+      font-size: 16px;
+      font-weight: 400;
+      &:hover{
+        text-decoration: none;
+        color: #c7ede4;
+      }
+    }
+  }
+}

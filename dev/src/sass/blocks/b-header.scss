@@ -1,0 +1,45 @@
+.b-header{
+  background: #1c1c1c;
+  &__container{
+    width: 100%;
+  }
+  &__logoImg{
+    max-width: 199px;
+    max-height: 94px;
+  }
+  &__navbarLink{
+    color:  #c7ede4;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 35px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
+    position: relative;
+    &:after{
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      width: 0;
+      background-color:  #96302f;
+      transition: all .5s;
+    }
+    &:hover{
+      color: #fff;
+      transition: all .5s;
+      text-decoration: none;
+      &:after{
+        width: 100%;
+        transition: all .5s;
+      }
+    }
+  }
+}
+::placeholder {
+  color: gray;
+}
