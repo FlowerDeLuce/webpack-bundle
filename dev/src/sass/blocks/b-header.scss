@@ -43,3 +43,10 @@
 ::placeholder {
   color: gray;
 }
+
+.sprite{
+  background-image: url(../img/Calendar.png);
+}
+.spritesss{
+  @include sprite($fff);
+}

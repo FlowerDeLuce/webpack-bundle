@@ -354,6 +354,12 @@ td,
 th {
   padding: 0; }
 
+@font-face {
+  font-family: 'Tahoma';
+  src: url(fonts/Tahoma-Bold/Tahoma-Bold.eot?#iefix) format("embedded-opentype"), url(fonts/Tahoma-Bold/Tahoma-Bold.woff) format("woff"), url(fonts/Tahoma-Bold/Tahoma-Bold.ttf) format("truetype"), url(fonts/Tahoma-Bold/Tahoma-Bold.svg#Tahoma-Bold) format("svg");
+  font-weight: 700;
+  font-style: normal; }
+
 /* Framework Common Libraries */
 /*=================================
 =            VARIABLES            =
@@ -407,6 +413,15 @@ th {
 ::placeholder {
   color: gray; }
 
+.sprite {
+  background-image: url(img/Calendar.png); }
+
+.spritesss {
+  background-image: url(img/blocks/spritessheet.png);
+  background-position: -22px 0px;
+  width: 22px;
+  height: 22px; }
+
 .b-footer {
   padding: 30px 0;
   background-color: #111111; }
@@ -426,10 +441,4 @@ th {
       .b-footer__menuLink:hover {
         text-decoration: none;
         color: #c7ede4; }
-
-.sprite {
-  background-image: url(src/img/Calendar.png); }
-
-.spritesss {
-  background-image: url(src/img/blocks/spritessheet.png); }
 

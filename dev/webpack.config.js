@@ -1,12 +1,12 @@
 //https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1
 //https://github.com/webpack-contrib/mini-css-extract-plugin/issues/37
-var glob = require("glob");
+const glob = require('glob');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const basePath = __dirname;
 const targetPath = '../';
 const targetFolder = 'assets';
@@ -33,13 +33,16 @@ module.exports = {
             test: /\.scss$/,
             use: [ 'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
         },
-        {test: /\.png$/, use: [
-                'file-loader?name=[path][name].[ext]'
-            ]}
+        { test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+         loader: 'file-loader',
+          options: {
+            context: path.resolve(__dirname, 'src'),
+            name: '[path][name].[ext]'
+            
+       }
+    }
+           
         ]
-    },
-  resolve: {
-        modules: ["node_modules", "src"]
     },
   plugins: [
    
@@ -47,10 +50,17 @@ module.exports = {
         root: basePath + '/' + targetPath
       }),
     
-    new CopyWebpackPlugin([{
-      from: 'src/img/',
-       to: '../assets/img/'
-    }]),
+    new CopyWebpackPlugin([
+      {
+        from: 'src/',
+        to: '../assets/',
+        ignore: ["js/**/*", "sass/**/*"]
+      }/*,
+      {
+        from: 'src/fonts/',
+        to: '../assets/fonts/'
+      }*/
+    ]),
      new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i,
                          optipng: {
         optimizationLevel: 9
