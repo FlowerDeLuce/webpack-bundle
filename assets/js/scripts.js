@@ -138,7 +138,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("console.log('hhh');\n\n//# sourceURL=webpack:///./src/js/index2.js?");
+eval("var fff = a => console.log(a);\n\nfff('ghghghg');\n\n//# sourceURL=webpack:///./src/js/index2.js?");
 
 /***/ }),
 

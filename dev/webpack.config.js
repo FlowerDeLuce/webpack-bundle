@@ -1,5 +1,3 @@
-//https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1
-//https://github.com/webpack-contrib/mini-css-extract-plugin/issues/37
 const glob = require('glob');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -10,7 +8,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const basePath = __dirname;
 const targetPath = '../';
 const targetFolder = 'assets';
-var SpritesmithPlugin = require('webpack-spritesmith');
+const SpritesmithPlugin = require('webpack-spritesmith');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
   entry: {
     'js/scripts': glob.sync('./src/js/*.js'),
@@ -27,7 +26,8 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
-              loader: 'babel-loader'}
+              loader: 'babel-loader'
+            }
         },
           {
             test: /\.scss$/,
@@ -86,7 +86,10 @@ module.exports = {
       cssProcessor: require('cssnano'),
       cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
       canPrint: true
-    })
+    })/*,
+     new UglifyJsPlugin({
+      test: /\.js($|\?)/i
+    })*/
     
    ]
 };
