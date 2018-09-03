@@ -4,7 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const basePath = __dirname;
 const targetPath = '../';
 const targetFolder = 'assets';
@@ -19,77 +18,75 @@ module.exports = {
     path: path.resolve(__dirname, '../assets/'),
     filename: '[name].js'
   },
-  
-   module: {
-        rules: [
-         {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-              loader: 'babel-loader'
-            }
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
         },
-          {
-            test: /\.scss$/,
-            use: [ 'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+      {
+        test: /\.scss$/,
+        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        options: { sourceMap: true }
         },
-        { test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-         loader: 'file-loader',
-          options: {
-            context: path.resolve(__dirname, 'src'),
-            name: '[path][name].[ext]'
-            
-       }
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          context: path.resolve(__dirname, 'src'),
+          name: '[path][name].[ext]'
+
+        }
     }
-           
+
         ]
-    },
+  },
   plugins: [
-   
+
   new CleanWebpackPlugin([targetFolder], {
-        root: basePath + '/' + targetPath
-      }),
-    
+      root: basePath + '/' + targetPath
+    }),
+
     new CopyWebpackPlugin([
       {
         from: 'src/',
         to: '../assets/',
         ignore: ["js/**/*", "sass/**/*"]
-      }/*,
+      },
       {
         from: 'src/fonts/',
         to: '../assets/fonts/'
-      }*/
+      }
     ]),
-     new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i,
-                         optipng: {
+     new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      optipng: {
         optimizationLevel: 9
-      }}),
+      }
+    }),
     new SpritesmithPlugin({
-      src :{
-       cwd: path.resolve(__dirname, 'src/img/sprites'),
-                glob: '*.png'
-    },
-                 target: {
-                image: path.resolve(__dirname, 'src/img/blocks/spritessheet.png'),
-                css: path.resolve(__dirname, 'src/sass/_sprite.scss')
-            },
-            apiOptions: {
-               cssImageRef: '../img/blocks/spritessheet.png'
-            }
+      src: {
+        cwd: path.resolve(__dirname, 'src/img/sprites'),
+        glob: '*.png'
+      },
+      target: {
+        image: path.resolve(__dirname, 'src/img/blocks/spritessheet.png'),
+        css: path.resolve(__dirname, 'src/sass/_sprite.scss')
+      },
+      apiOptions: {
+        cssImageRef: '../img/blocks/spritessheet.png'
+      }
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/style.css',
+      filename: 'css/style.min.css'
     }),
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.optimize\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
-      canPrint: true
-    })/*,
      new UglifyJsPlugin({
       test: /\.js($|\?)/i
-    })*/
-    
+    })
+
    ]
 };
