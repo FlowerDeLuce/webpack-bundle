@@ -9,7 +9,13 @@ const targetPath = '../';
 const targetFolder = 'assets';
 const SpritesmithPlugin = require('webpack-spritesmith');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+let devMode = false;
+if(process.env !== 'production') {
+  devMode = true;
+}
+console.log('fvvfv', process.env);
 module.exports = {
+  devtool: (devMode)? 'source-map' : '(none)',
   entry: {
     'js/scripts': glob.sync('./src/js/*.js'),
     'js/vendor': glob.sync('./src/js/plugins/*.js')
@@ -30,8 +36,7 @@ module.exports = {
         },
       {
         test: /\.scss$/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
-        options: { sourceMap: true }
+        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
         },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -85,7 +90,8 @@ module.exports = {
       filename: 'css/style.min.css'
     }),
      new UglifyJsPlugin({
-      test: /\.js($|\?)/i
+      test: /\.js($|\?)/i,/*
+      sourceMap: (devMode)? 'true' : ''*/
     })
 
    ]
